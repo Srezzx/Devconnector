@@ -9,7 +9,7 @@ import {
 } from './types';
 
 //REGISTER USER
-const register = ({
+export const register = ({
     name,
     email,
     password
@@ -24,22 +24,22 @@ const register = ({
         email,
         password
     });
+
     try {
         const res = await axios.post('/api/users', body, config);
         dispatch({
             type: REGISTER_SUCCESS,
-            paload: res.data
+            payload: res.data
         });
     } catch (err) {
         console.log(err);
         const errors = err.response.data.errors;
-        console.log(errors);
         if (errors) {
             errors.forEach(error => dispatch(setAlert(error.msg, 'danger')));
         }
         dispatch({
-            type: REGISTER_FAIL,
-        })
+            type: REGISTER_FAIL
+        });
     }
 }
 
